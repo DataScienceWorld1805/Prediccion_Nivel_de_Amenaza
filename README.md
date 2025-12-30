@@ -1,39 +1,176 @@
-# Informe Detallado: Análisis de Modelos de Machine Learning para Predicción de Threat Level
+# 🔫 Predicción de Threat Level en Tiroteos Fatales por Policía
 
-## 1. Resumen Ejecutivo
+[![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://www.python.org/)
+[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)](https://jupyter.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.0+-green.svg)](https://scikit-learn.org/)
+[![XGBoost](https://img.shields.io/badge/XGBoost-Latest-blue.svg)](https://xgboost.readthedocs.io/)
 
-Este informe presenta un análisis exhaustivo de dos modelos de Machine Learning aplicados al dataset de tiroteos fatales por policía en Estados Unidos. El objetivo es predecir el nivel de amenaza (`threat_level`) que incluye tres clases: **attack**, **other** y **undetermined**.
+Proyecto de análisis predictivo que utiliza modelos de Machine Learning para predecir el nivel de amenaza (`threat_level`) en casos de tiroteos fatales por policía en Estados Unidos. Este proyecto implementa modelos avanzados de clasificación multiclase y proporciona un análisis exhaustivo de los factores que influyen en la determinación del nivel de amenaza.
 
-### Dataset Utilizado
-- **Total de registros**: 5,416 casos de tiroteos fatales
-- **Período**: Enero 2015 - Junio 2020
-- **Variable objetivo**: `threat_level` (clasificación multiclase)
-- **División de datos**: 80% entrenamiento / 20% prueba (con estratificación)
-- **Fuente del Dataset**: [Washington Post - Fatal Police Shootings](https://www.kaggle.com/datasets/washingtonpost/police-shootings)
+## 📋 Tabla de Contenidos
 
----
+- [Descripción](#-descripción)
+- [Características](#-características)
+- [Estructura del Proyecto](#-estructura-del-proyecto)
+- [Requisitos](#-requisitos)
+- [Instalación](#-instalación)
+- [Uso](#-uso)
+- [Resultados](#-resultados)
+- [Metodología](#-metodología)
+- [Tecnologías Utilizadas](#-tecnologías-utilizadas)
+- [Dataset](#-dataset)
+- [Referencias](#-referencias)
+- [Licencia](#-licencia)
 
-## 2. Modelos Evaluados
+## 🎯 Descripción
 
-### 2.1 Random Forest Classifier
+Este proyecto analiza un dataset de **5,416 casos** de tiroteos fatales por policía ocurridos en Estados Unidos entre enero de 2015 y junio de 2020. El objetivo principal es desarrollar modelos de Machine Learning capaces de predecir el nivel de amenaza (`threat_level`) clasificado en tres categorías:
 
-#### Configuración del Modelo Optimizado
-- **Número de árboles (n_estimators)**: 200
-- **Profundidad máxima (max_depth)**: 20
-- **Mínimo de muestras para dividir (min_samples_split)**: 5
-- **Mínimo de muestras en hoja (min_samples_leaf)**: 1
-- **Balanceo de clases**: Activado (`class_weight='balanced'`)
-- **Score de validación cruzada (CV)**: 0.6014
+- **attack**: Amenaza de ataque
+- **other**: Otras circunstancias
+- **undetermined**: Indeterminado
 
-#### Resultados en el Conjunto de Prueba
+El proyecto incluye un análisis exploratorio completo (EDA), preprocesamiento de datos, feature engineering, optimización de hiperparámetros y evaluación comparativa de múltiples modelos de Machine Learning.
 
-**Métricas Generales:**
-- **Accuracy (Precisión Global)**: 68.36%
-- **Precision (macro)**: 59.40%
-- **Recall (macro)**: 57.07%
-- **F1-Score (macro)**: 57.97%
+## ✨ Características
 
-**Análisis por Clase:**
+- ✅ **Análisis Exploratorio de Datos (EDA)** completo con visualizaciones
+- ✅ **Preprocesamiento avanzado** con manejo de valores faltantes
+- ✅ **Feature Engineering** incluyendo características temporales
+- ✅ **Optimización de hiperparámetros** mediante GridSearchCV
+- ✅ **Comparación de modelos**: Random Forest vs XGBoost
+- ✅ **Evaluación exhaustiva** con múltiples métricas de rendimiento
+- ✅ **Análisis de importancia** de características
+- ✅ **Informe detallado** de resultados y conclusiones
+- ✅ **Documentación completa** en español
+
+## 📁 Estructura del Proyecto
+
+```
+Tiroteo_USA/
+│
+├── README.md                           # Este archivo
+├── threat_level_prediction.ipynb       # Notebook principal con todo el análisis
+├── Informe_Resultados_Modelos_ML.md    # Informe detallado de resultados
+├── fatal-police-shootings-data.csv     # Dataset original
+├── referencia_dataset_kaggle.txt       # Referencia del dataset
+└── archive.zip                         # Archivo comprimido de respaldo
+```
+
+### Descripción de Archivos
+
+- **`threat_level_prediction.ipynb`**: Notebook Jupyter que contiene todo el pipeline de Machine Learning:
+  - Carga y exploración de datos
+  - Preprocesamiento y limpieza
+  - Feature engineering
+  - Entrenamiento de modelos (Random Forest y XGBoost)
+  - Evaluación y comparación
+  - Visualizaciones y análisis de importancia
+
+- **`Informe_Resultados_Modelos_ML.md`**: Informe técnico detallado con:
+  - Análisis de resultados por modelo
+  - Comparación de métricas
+  - Interpretación de matrices de confusión
+  - Recomendaciones y conclusiones
+
+- **`fatal-police-shootings-data.csv`**: Dataset principal con 5,416 registros y 14 características
+
+## 🔧 Requisitos
+
+### Requisitos del Sistema
+- Python 3.7 o superior
+- Jupyter Notebook o JupyterLab
+
+### Librerías Python
+
+Las siguientes librerías son necesarias para ejecutar el proyecto:
+
+```
+pandas >= 1.3.0
+numpy >= 1.21.0
+matplotlib >= 3.4.0
+seaborn >= 0.11.0
+scikit-learn >= 1.0.0
+xgboost >= 1.5.0
+```
+
+## 📦 Instalación
+
+1. **Clonar el repositorio** (o descargar los archivos)
+
+```bash
+git clone https://github.com/tu-usuario/Tiroteo_USA.git
+cd Tiroteo_USA
+```
+
+2. **Crear un entorno virtual** (recomendado)
+
+```bash
+python -m venv venv
+
+# En Windows
+venv\Scripts\activate
+
+# En Linux/Mac
+source venv/bin/activate
+```
+
+3. **Instalar las dependencias**
+
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn xgboost jupyter
+```
+
+O usar el archivo `requirements.txt` si está disponible:
+
+```bash
+pip install -r requirements.txt
+```
+
+4. **Abrir Jupyter Notebook**
+
+```bash
+jupyter notebook threat_level_prediction.ipynb
+```
+
+## 🚀 Uso
+
+### Ejecución Básica
+
+1. Asegúrate de que el archivo `fatal-police-shootings-data.csv` esté en el mismo directorio que el notebook
+2. Abre el notebook `threat_level_prediction.ipynb` en Jupyter
+3. Ejecuta todas las celdas secuencialmente (Cell → Run All)
+
+### Ejecución por Secciones
+
+El notebook está organizado en secciones que puedes ejecutar de forma independiente:
+
+1. **Importación de librerías y carga de datos**
+2. **Análisis Exploratorio de Datos (EDA)**
+3. **Preprocesamiento de datos**
+4. **Feature Engineering**
+5. **División de datos (Train/Test)**
+6. **Entrenamiento de modelos**
+   - Random Forest Classifier
+   - XGBoost Classifier
+7. **Evaluación y comparación de modelos**
+8. **Análisis de importancia de características**
+
+### Tiempo Estimado de Ejecución
+
+- **Ejecución completa**: ~10-15 minutos (dependiendo del hardware)
+- **GridSearchCV**: ~5-8 minutos por modelo (puede variar significativamente)
+
+## 📊 Resultados
+
+### Resumen de Rendimiento
+
+| Modelo | Accuracy | Precision (macro) | Recall (macro) | F1-Score (macro) |
+|--------|----------|-------------------|----------------|------------------|
+| **Random Forest** | 68.36% | 59.40% | 57.07% | **57.97%** |
+| **XGBoost** | 68.54% | 60.24% | 56.42% | 57.86% |
+
+### Resultados por Clase (Random Forest)
 
 | Clase | Precision | Recall | F1-Score | Muestras |
 |-------|-----------|--------|----------|----------|
@@ -41,198 +178,151 @@ Este informe presenta un análisis exhaustivo de dos modelos de Machine Learning
 | **other** | 0.52 | 0.58 | 0.55 | 337 |
 | **undetermined** | 0.47 | 0.38 | 0.42 | 48 |
 
-**Interpretación de Resultados:**
-- La clase **attack** es la mejor predicha, con un F1-score de 0.77. Esto es esperado dado que es la clase mayoritaria (64.5% del dataset).
-- La clase **other** muestra un rendimiento moderado (F1-score: 0.55), con mejor recall que precision, indicando que el modelo tiende a sobre-predecir esta clase.
-- La clase **undetermined** tiene el peor rendimiento (F1-score: 0.42), principalmente debido a su escasez (solo 48 muestras en el conjunto de prueba, 4.4% del total).
+### Conclusiones Principales
 
-### 2.2 XGBoost Classifier
+- ✅ **Random Forest** obtiene el mejor F1-Score macro (57.97%), siendo el modelo recomendado
+- ✅ La clase **attack** es la mejor predicha (F1-Score: 0.77) debido a su mayor representación
+- ⚠️ La clase **undetermined** presenta mayores desafíos (F1-Score: 0.42) por su escasez en el dataset
+- 📈 Ambos modelos muestran rendimiento similar, validando la robustez del análisis
 
-#### Configuración del Modelo Optimizado
-- **Número de estimadores (n_estimators)**: 100
-- **Profundidad máxima (max_depth)**: 3
-- **Tasa de aprendizaje (learning_rate)**: 0.01
-- **Submuestreo (subsample)**: 1.0 (100% de las muestras)
-- **Score de validación cruzada (CV)**: 0.6041
+Para más detalles, consulta el [Informe de Resultados](Informe_Resultados_Modelos_ML.md).
 
-#### Resultados en el Conjunto de Prueba
+## 🔬 Metodología
 
-**Métricas Generales:**
-- **Accuracy (Precisión Global)**: 68.54%
-- **Precision (macro)**: 60.24%
-- **Recall (macro)**: 56.42%
-- **F1-Score (macro)**: 57.86%
+### Pipeline de Machine Learning
 
-**Análisis por Clase:**
+1. **Análisis Exploratorio (EDA)**
+   - Estadísticas descriptivas
+   - Análisis de valores faltantes
+   - Distribuciones y correlaciones
+   - Visualizaciones interactivas
 
-| Clase | Precision | Recall | F1-Score | Muestras |
-|-------|-----------|--------|----------|----------|
-| **attack** | 0.78 | 0.76 | 0.77 | 699 |
-| **other** | 0.52 | 0.58 | 0.55 | 337 |
-| **undetermined** | 0.50 | 0.35 | 0.41 | 48 |
+2. **Preprocesamiento**
+   - Manejo de valores faltantes (imputación y categorías "Unknown")
+   - Codificación de variables categóricas (One-Hot Encoding)
+   - Normalización de variables numéricas (StandardScaler)
+   - Conversión de variables booleanas
 
-**Interpretación de Resultados:**
-- XGBoost muestra un rendimiento muy similar a Random Forest para la clase **attack** (F1-score: 0.77).
-- Para la clase **other**, el rendimiento es idéntico a Random Forest (F1-score: 0.55).
-- La clase **undetermined** tiene un rendimiento ligeramente inferior (F1-score: 0.41 vs 0.42 de Random Forest).
+3. **Feature Engineering**
+   - Extracción de características temporales (año, mes, día de la semana)
+   - Agrupación de categorías raras en variables categóricas
+   - Creación de features derivadas
 
----
+4. **Modelado**
+   - División estratificada de datos (80/20)
+   - Optimización de hiperparámetros con GridSearchCV (5-fold CV)
+   - Entrenamiento de modelos optimizados
+   - Evaluación con múltiples métricas
 
-## 3. Comparación de Modelos
+5. **Evaluación**
+   - Matrices de confusión
+   - Métricas por clase y promedio
+   - Análisis de importancia de características
+   - Comparación de modelos
 
-### Tabla Comparativa
+### Hiperparámetros Optimizados
 
-| Métrica | Random Forest | XGBoost | Diferencia |
-|---------|---------------|---------|------------|
-| **Accuracy** | 68.36% | **68.54%** | +0.18% |
-| **Precision (macro)** | 59.40% | **60.24%** | +0.84% |
-| **Recall (macro)** | **57.07%** | 56.42% | -0.65% |
-| **F1-Score (macro)** | **57.97%** | 57.86% | -0.11% |
+#### Random Forest
+- `n_estimators`: 200
+- `max_depth`: 20
+- `min_samples_split`: 5
+- `min_samples_leaf`: 1
+- `class_weight`: 'balanced'
 
-### Análisis Comparativo
+#### XGBoost
+- `n_estimators`: 100
+- `max_depth`: 3
+- `learning_rate`: 0.01
+- `subsample`: 1.0
 
-1. **Accuracy**: XGBoost obtiene una ligera ventaja (0.18 puntos porcentuales), pero la diferencia es prácticamente despreciable desde el punto de vista práctico.
+## 🛠️ Tecnologías Utilizadas
 
-2. **Precision (macro)**: XGBoost supera a Random Forest en 0.84 puntos porcentuales, indicando que tiene un mejor balance en la precisión promedio entre todas las clases.
+### Librerías Principales
 
-3. **Recall (macro)**: Random Forest obtiene un recall ligeramente superior (0.65 puntos porcentuales), lo que indica una mejor capacidad para identificar correctamente las clases verdaderas.
+- **pandas**: Manipulación y análisis de datos
+- **numpy**: Operaciones numéricas
+- **matplotlib**: Visualizaciones básicas
+- **seaborn**: Visualizaciones estadísticas avanzadas
+- **scikit-learn**: Preprocesamiento, modelado y evaluación
+- **xgboost**: Modelo avanzado de gradient boosting
 
-4. **F1-Score (macro)**: Random Forest tiene un F1-Score macro ligeramente superior (0.11 puntos porcentuales), que es la métrica más equilibrada para evaluar el rendimiento en problemas multiclase desbalanceados.
+### Herramientas
 
-### Conclusión de la Comparación
+- **Jupyter Notebook**: Entorno de desarrollo interactivo
+- **Git**: Control de versiones
 
-**Los dos modelos tienen un rendimiento prácticamente idéntico**, con diferencias menores a 1 punto porcentual en todas las métricas. Esto sugiere que:
+## 📚 Dataset
 
-- Ambos modelos capturan patrones similares en los datos
-- El dataset puede tener limitaciones inherentes que impiden mejoras significativas
-- La elección entre uno u otro podría depender más de aspectos prácticos (velocidad de entrenamiento, interpretabilidad) que de rendimiento puro
+### Información General
 
----
+- **Nombre**: Fatal Police Shootings Dataset
+- **Fuente**: Washington Post
+- **Plataforma**: Kaggle
+- **URL**: https://www.kaggle.com/datasets/washingtonpost/police-shootings
+- **Registros**: 5,416 casos
+- **Período**: Enero 2015 - Junio 2020
+- **Características**: 14 variables (demográficas, contextuales y temporales)
 
-## 4. Análisis de Matrices de Confusión
+### Variables Principales
 
-### Random Forest
+- `threat_level`: Variable objetivo (attack, other, undetermined)
+- `armed`: Tipo de arma
+- `age`: Edad
+- `gender`: Género
+- `race`: Raza
+- `signs_of_mental_illness`: Signos de enfermedad mental
+- `flee`: Comportamiento de huida
+- `body_camera`: Presencia de cámara corporal
+- `date`: Fecha del incidente
+- Y más...
 
-La matriz de confusión muestra que:
-- **attack**: El modelo predice correctamente la mayoría de los casos de esta clase (525 de 699 correctos), con algunas confusiones principalmente hacia "other".
-- **other**: Tiene más dificultades (195 de 337 correctos), confundiéndose frecuentemente con "attack".
-- **undetermined**: Presenta el mayor desafío (18 de 48 correctos), siendo frecuentemente confundida con "other" o "attack".
-
-### XGBoost
-
-La matriz de confusión es similar a Random Forest:
-- Patrones de confusión prácticamente idénticos entre clases
-- La dificultad principal sigue siendo la clasificación de "undetermined"
-- La clase "attack" mantiene su buen rendimiento
-
----
-
-## 5. Limitaciones y Desafíos
-
-### 5.1 Desbalance de Clases
-
-El dataset presenta un **desbalance significativo**:
-- **attack**: ~64.5% de las muestras
-- **other**: ~31.1% de las muestras  
-- **undetermined**: ~4.4% de las muestras
-
-Este desbalance afecta especialmente el rendimiento en la clase "undetermined", que tiene muy pocas muestras para entrenar el modelo adecuadamente.
-
-### 5.2 Complejidad del Problema
-
-- La clasificación de "threat_level" puede depender de factores contextuales no capturados en el dataset
-- La clase "undetermined" por su naturaleza ambigua es inherentemente difícil de predecir
-- Las características disponibles pueden no ser suficientes para distinguir perfectamente entre todas las clases
-
-### 5.3 Métricas de Rendimiento
-
-- Con un F1-Score macro del ~58%, los modelos tienen margen de mejora
-- El accuracy del ~68% es aceptable pero no óptimo
-- La diferencia entre precision y recall en algunas clases indica que los modelos tienen sesgos hacia ciertas predicciones
-
----
-
-## 6. Importancia de Características
-
-Aunque no se muestran los detalles específicos en este resumen, el análisis de importancia de características (disponible en el notebook) revela que las variables más relevantes para la predicción incluyen:
-
-1. Variables relacionadas con el tipo de arma (`armed_grouped`)
-2. Características demográficas (`age`, `race`, `gender`)
-3. Variables contextuales (`flee`, `signs_of_mental_illness`, `body_camera`)
-4. Variables temporales (`year`, `month`, `day_of_week`)
-
----
-
-## 7. Recomendaciones y Conclusiones
-
-### 7.1 Selección del Modelo
-
-**Recomendación: Random Forest**
-
-Aunque ambos modelos tienen rendimientos muy similares, Random Forest es recomendado por:
-
-1. **Ligera ventaja en F1-Score macro**: La métrica más importante para problemas desbalanceados
-2. **Mejor recall**: Importante para no perder casos verdaderos
-3. **Interpretabilidad**: Random Forest proporciona una visualización más clara de la importancia de características
-4. **Estabilidad**: Menos hiperparámetros que ajustar
-
-### 7.2 Mejoras Potenciales
-
-1. **Técnicas de balanceo de clases**:
-   - Oversampling de la clase "undetermined" (SMOTE)
-   - Undersampling de las clases mayoritarias
-   - Pesos personalizados por clase
-
-2. **Ingeniería de características**:
-   - Creación de características de interacción
-   - Transformaciones de variables categóricas
-   - Agrupación de estados/ciudades por similitud
-
-3. **Modelos adicionales**:
-   - Prueba de modelos de ensemble más complejos
-   - Modelos de deep learning para capturar patrones no lineales complejos
-
-4. **Recolección de datos**:
-   - Más muestras de la clase "undetermined" para mejorar el entrenamiento
-   - Variables adicionales que capturen mejor el contexto del incidente
-
-### 7.3 Aplicación Práctica
-
-Los modelos actuales tienen un **rendimiento aceptable para aplicaciones prácticas**, especialmente considerando:
-
-- La naturaleza compleja y a menudo subjetiva de la clasificación de "threat_level"
-- El desbalance inherente del dataset
-- El rendimiento consistente entre modelos diferentes
-
-Un accuracy del ~68% con F1-Score macro de ~58% es **razonable para un problema de clasificación multiclase desbalanceado** en el dominio de análisis de incidentes policiales.
-
----
-
-## 8. Métricas de Validación Cruzada
-
-- **Random Forest CV Score**: 0.6014
-- **XGBoost CV Score**: 0.6041
-
-Los scores de validación cruzada (5-fold) son consistentes con los resultados del conjunto de prueba, indicando que los modelos **no presentan overfitting significativo** y que los resultados son generalizables.
-
----
-
-## Anexo: Distribución de Clases en el Dataset
+### Distribución de Clases
 
 - **attack**: 3,491 muestras (64.5%)
 - **other**: 1,686 muestras (31.1%)
 - **undetermined**: 239 muestras (4.4%)
 
-**Total**: 5,416 muestras
----
-## 9. Referencias
+*Nota: El dataset presenta un desbalance de clases que es abordado mediante técnicas de balanceo en el modelo.*
+
+## 📖 Referencias
 
 ### Dataset
 
-**Fatal Police Shootings Dataset**
-- **Fuente**: Washington Post
-- **Plataforma**: Kaggle
-- **URL**: https://www.kaggle.com/datasets/washingtonpost/police-shootings
-- **Descripción**: Dataset que contiene registros de personas que fueron baleadas y asesinadas por oficiales de policía en los Estados Unidos desde 2015.
+- **Washington Post - Fatal Police Shootings**
+  - Plataforma: Kaggle
+  - URL: https://www.kaggle.com/datasets/washingtonpost/police-shootings
+
+### Documentación de Librerías
+
+- [scikit-learn Documentation](https://scikit-learn.org/stable/)
+- [XGBoost Documentation](https://xgboost.readthedocs.io/)
+- [pandas Documentation](https://pandas.pydata.org/docs/)
+
+## 📝 Notas Adicionales
+
+### Limitaciones del Proyecto
+
+- El dataset presenta desbalance de clases, especialmente en la categoría "undetermined"
+- La naturaleza subjetiva de algunas clasificaciones puede afectar el rendimiento
+- Los modelos capturan patrones estadísticos pero no pueden explicar causalidades
+
+### Posibles Mejoras Futuras
+
+- Implementación de técnicas avanzadas de balanceo (SMOTE)
+- Prueba de modelos de Deep Learning
+- Feature engineering adicional con interacciones
+- Análisis de importancia de características más detallado
+- Despliegue del modelo como API
+
+## 👤 Autor
+
+Proyecto desarrollado como parte de un análisis de Machine Learning para predicción de niveles de amenaza en incidentes policiales.
+
+## 📄 Licencia
+
+Este proyecto es de código abierto y está disponible para fines educativos y de investigación.
+
 ---
-*Este informe fue generado basado en los resultados del notebook `threat_level_prediction.ipynb` ejecutado con el dataset `fatal-police-shootings-data.csv`.*
+
+**⭐ Si este proyecto te resulta útil, considera darle una estrella en GitHub**
+
